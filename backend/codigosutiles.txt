@@ -1,0 +1,2 @@
+// Redirect to home page
+				/* response.redirect('/home'); */
