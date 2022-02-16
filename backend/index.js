@@ -55,12 +55,13 @@ app.post('/api/auth', function (request, response) {
 				response.status(200).send({token: "token "}); //request.session.email
 
 			} else {
-				response.send('Incorrect email and/or Password!');
+				console.log("dentro de else");
+				response.status(401).send('Incorrect email and/or Password!');
 			}
 			response.end();
 		});
 	} else {
-		response.send('Please enter email and Password!');
+		response.status(401).send('Please enter email and Password!');
 		response.end();
 	}
 });

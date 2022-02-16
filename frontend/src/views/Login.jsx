@@ -1,77 +1,79 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Button, InputLabel, Input, FormGroup } from '@mui/material';
-import { Outlet, Link} from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 //create react component
-class Login extends Component {
-    //define the initial state
-    state = {
-        email: "",
-        password: "",
-        error: null
-    };
-    
+function Login (){
+        let navigate = useNavigate();
+       //create state for email, password, error
+        const [email, setEmail] = React.useState('');
+        const [password, setPassword] = React.useState('');
+        const [error, setError] = React.useState('');
+ 
+   
     //handle input changes
-    handleChange = e => {
-        this.setState({
-        [e.target.name]: e.target.value
-        });
+   const handleChange = e => {
+        /* this.setState({
+            [e.target.name]: e.target.value
+        }); */
+        if (e.target.name === 'email') {
+            setEmail(e.target.value);
+        } else if (e.target.name === 'password') {
+            setPassword(e.target.value);
+        } 
+
     };
     
-
+    
     //post username and password using react-router
-    handleSubmit = async e => {
-        console.log("handleSubmit");
+   const handleSubmit = async e => {
+
         e.preventDefault();
-        const { email, password } = this.state;
-        try {
-            const response = await fetch('http://localhost:5000/api/auth', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email,
-                    password
-                })
+      
+        axios.post('http://localhost:5000/api/auth', {
+            email,
+            password
+        })
+            .then(function (response) {
+                console.log(response);
+                    //console.log(response);
+                    localStorage.setItem('token', response.token);
+                    navigate('/productos');
+                    //this.props.history.push('/');
+                    alert('Login Successful');
+                
+            })
+            .catch(function (error) {
+                console.log(error);
+            //  this.setState({ error: error});
             });
-            const data = await response.json();
-            console.log(data);
-            if (data.error) {
-                this.setState({ error: data.error });
-            } else {
-                localStorage.setItem('token', data.token);
-                //this.props.history.push('/');
-                alert('Login Successful');
-            }
-        } catch (error) {
-            console.error(error);
-            this.setState({ error: error });
-        }
+
+
     };
 
 
 
 
-    render() {
-        const { email, password, error } = this.state;
+    
         return (
-            
+
             <div className="login">
-                      <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem"
-        }}
-      >
-        <Link to="/productos">Productos</Link> |{" "}
-        <Link to="/contacto">Contacto</Link>
-      </nav>
+                <nav
+                    style={{
+                        borderBottom: "solid 1px",
+                        paddingBottom: "1rem"
+                    }}
+                >
+                    <Link to="/productos">Productos</Link> |{" "}
+                    <Link to="/contacto">Contacto</Link>
+                </nav>
                 <h1>Sign In
                     <span>.</span>
                 </h1>
-                <form onSubmit={this.handleSubmit 
+                <form onSubmit={handleSubmit
                 }>
                     <FormGroup>
                         <InputLabel>Email</InputLabel>
@@ -81,7 +83,7 @@ class Login extends Component {
                             id="exampleEmail"
                             placeholder="with a placeholder"
                             value={email}
-                            onChange={this.handleChange}
+                            onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
@@ -92,18 +94,18 @@ class Login extends Component {
                             id="examplePassword"
                             placeholder="password placeholder"
                             value={password}
-                            onChange={this.handleChange}
+                            onChange={handleChange}
                         />
                     </FormGroup>
                     <Button type="submit">Submit</Button>
                 </form>
-                {error && 
-                <Typography style={{color:"#E53935"}}  variant="h5" >{error.message}</Typography>
-               }
+                {error &&
+                    <Typography style={{ color: "#E53935" }} variant="h5" >{error.message}</Typography>
+                }
                 <Outlet />
             </div>
         );
-    }
+    
 }
 
 export default Login;

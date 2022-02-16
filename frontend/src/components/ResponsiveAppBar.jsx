@@ -43,6 +43,8 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+
+          {/* Esta es para vista pequena, por ejm al hacer la ventana pequena o en un móvil */}
           <Typography
             variant="h6"
             noWrap
@@ -82,12 +84,15 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} >
+                <MenuItem key={page} onClick={() => handleCloseNavMenu("/" + page)} >
+
                   <Typography textAlign="center" >{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+
+          {/* Esta es para vistas grandes, en computadores */}
           <Typography
             variant="h6"
             noWrap
@@ -96,13 +101,13 @@ const ResponsiveAppBar = () => {
           >
             LOGO
           </Typography>
-          
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-        
+
               <Button
                 key={page}
-               
+
                 onClick={() => handleCloseNavMenu("/" + page)}
                 //onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -113,6 +118,7 @@ const ResponsiveAppBar = () => {
             ))}
           </Box>
 
+          {/* boton para lista de opcione perfil de usuario */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

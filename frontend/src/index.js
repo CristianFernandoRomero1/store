@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Contacto from './routes/contacto';
-import Productos from './routes/productos';
+import Contacto from './views/contacto';
+import Productos from './views/productos';
+import Blog from './views/blog';
  
 ReactDOM.render(
 /*    <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.render(
       <Route path="/" element={<App />} />
       <Route path="productos" element={<Productos />} />
       <Route path="contacto" element={<Contacto />} />
+      <Route path="blog" element={<Blog />} />
     </Routes>
   </BrowserRouter>, 
   document.getElementById('root')
