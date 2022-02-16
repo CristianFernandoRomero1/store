@@ -41,7 +41,7 @@ function Login (){
                 console.log(response);
                     //console.log(response);
                     localStorage.setItem('token', response.token);
-                    navigate('/productos');
+                    navigate('/homepage');
                     //this.props.history.push('/');
                     alert('Login Successful');
                 
