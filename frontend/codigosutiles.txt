@@ -1,1 +1,5 @@
  /*  min-height: 100vh; */
+
+   <Link to="/productos">Productos</Link> |{" "}
+                    <Link to="/contacto">Contacto</Link>
+                    

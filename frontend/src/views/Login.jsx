@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { Button, InputLabel, Input, FormGroup } from '@mui/material';
-import { Outlet, Link } from "react-router-dom";
+import { Outlet} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +24,9 @@ function Login (){
         } else if (e.target.name === 'password') {
             setPassword(e.target.value);
         } 
+        else if (e.target.name === 'error') {
+            setError(e.target.value);
+        }
 
     };
     
@@ -48,7 +51,8 @@ function Login (){
             })
             .catch(function (error) {
                 console.log(error);
-            //  this.setState({ error: error});
+            handleChange({target: {name: 'error', value: 'Credenciales inválidas'}});
+         
             });
 
 
@@ -67,8 +71,7 @@ function Login (){
                         paddingBottom: "1rem"
                     }}
                 >
-                    <Link to="/productos">Productos</Link> |{" "}
-                    <Link to="/contacto">Contacto</Link>
+                  
                 </nav>
                 <h1>Sign In
                     <span>.</span>
@@ -100,7 +103,7 @@ function Login (){
                     <Button type="submit">Submit</Button>
                 </form>
                 {error &&
-                    <Typography style={{ color: "#E53935" }} variant="h5" >{error.message}</Typography>
+                    <Typography style={{ color: "#E53935" }} variant="h5" >{error}</Typography>
                 }
                 <Outlet />
             </div>
