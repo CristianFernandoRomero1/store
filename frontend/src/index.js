@@ -4,11 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Contacto from './views/contacto';
+import SobreNosotros from './views/SobreNosotros';
 import Productos from './views/productos';
 import Blog from './views/blog';
-import Homepage from './views/homepage';
+import Tienda from './views/tienda';
 import ResponsiveAppBar from './components/ResponsiveAppBar';
+import Footer from './components/footer';
 ReactDOM.render(
 /*    <React.StrictMode>
     <App />
@@ -17,12 +18,13 @@ ReactDOM.render(
      <ResponsiveAppBar/>
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="homepage" element={<Homepage />} />
+      <Route path="Tienda" element={<Tienda />} />
       <Route path="productos" element={<Productos />} />
-      <Route path="contacto" element={<Contacto />} />
+      <Route path="sobreNosotros" element={<SobreNosotros />} />
       <Route path="blog" element={<Blog />} />
     </Routes>
-  </BrowserRouter>, 
+    <Footer/>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

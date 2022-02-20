@@ -53,8 +53,8 @@ function SwipeableTextMobileStepper() {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
-      <Paper
+    <Box sx={{ maxWidth: 1300, flexGrow: 1 }}> {/* 400 */}
+     {/*  <Paper
         square
         elevation={0}
         sx={{
@@ -66,12 +66,13 @@ function SwipeableTextMobileStepper() {
         }}
       >
         <Typography>{images[activeStep].label}</Typography>
-      </Paper>
+      </Paper> */}
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
+ 
       >
         {images.map((step, index) => (
           <div key={step.label}>
@@ -79,9 +80,9 @@ function SwipeableTextMobileStepper() {
               <Box
                 component="img"
                 sx={{
-                  height: 255,
+                  height: 320, //255
                   display: 'block',
-                  maxWidth: 400,
+                  maxWidth: 1300, //400
                   overflow: 'hidden',
                   width: '100%',
                 }}
@@ -92,7 +93,7 @@ function SwipeableTextMobileStepper() {
           </div>
         ))}
       </AutoPlaySwipeableViews>
-      <MobileStepper
+      {/* <MobileStepper
         steps={maxSteps}
         position="static"
         activeStep={activeStep}
@@ -120,7 +121,7 @@ function SwipeableTextMobileStepper() {
             Back
           </Button>
         }
-      />
+      /> */}
     </Box>
   );
 }

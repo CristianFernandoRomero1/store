@@ -12,8 +12,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-
-const pages = ['Productos', 'Contacto', 'Blog'];
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
+import {NavLink} from 'react-router-dom';
+import logo from '../images/logo.svg';	
+const pages = ['Tienda', 'Quiénes somos', 'Blog'];
+const links = ['Tienda', 'sobreNosotros', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
@@ -39,20 +44,66 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+  const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  }));
+  const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }));
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        width: '12ch',
+        '&:focus': {
+          width: '20ch',
+        },
+      },
+    },
+  }));
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
 
           {/* Esta es para vista pequena, por ejm al hacer la ventana pequena o en un móvil */}
+  
+  <NavLink to="/tienda" className="home-button">
+    {/* <image href="" className='logo' src={logo} alt=""></image> */}
+    
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            
           >
-            LOGO
+            Partefix
           </Typography>
+  </NavLink>
+         
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -84,7 +135,7 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={() => handleCloseNavMenu("/" + page)} >
+                <MenuItem key={page} onClick={() => handleCloseNavMenu("/" + links[pages.indexOf(page)])} >
 
                   <Typography textAlign="center" >{page}</Typography>
                 </MenuItem>
@@ -93,15 +144,35 @@ const ResponsiveAppBar = () => {
           </Box>
 
           {/* Esta es para vistas grandes, en computadores */}
+         
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          
+
           >
-            LOGO
-          </Typography>
+            LOGO abajo
+            </Typography>
+
+       {/*    <Link onClick={() => {
+            navigate('/store');	
+          }}
+          component="button"
+          variant="body2"
+          >
+              LOGO
+            </Link> */}
+    
+          <Search >
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -109,7 +180,7 @@ const ResponsiveAppBar = () => {
               <Button
                 key={page}
 
-                onClick={() => handleCloseNavMenu("/" + page)}
+                onClick={() => handleCloseNavMenu("/" + links[pages.indexOf(page)])}
                 //onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
